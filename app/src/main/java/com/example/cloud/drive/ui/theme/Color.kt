@@ -1,4 +1,4 @@
-package com.example.mynetdisk.ui.theme
+package com.example.cloud.drive.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

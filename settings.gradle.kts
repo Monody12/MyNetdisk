@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "My Netdisk"
+rootProject.name = "Cloud Drive"
 include(":app")
