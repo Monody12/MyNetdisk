@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CloudCircle
-import androidx.compose.material.icons.filled.DirectionsBus
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
@@ -40,19 +39,24 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.cloud.drive.ui.theme.CloudDriveTheme
 
 @Composable
-fun LoginScreen() {
+fun LoginScreen(
+    modifier: Modifier,
+    viewModel: LoginViewModel = hiltViewModel()
+) {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
 
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(Color(0xFFF2F2F2))
-            .padding(16.dp),
+            .padding(16.dp)
+        ,
         contentAlignment = Alignment.Center
     ) {
         Column(
@@ -117,7 +121,7 @@ fun LoginScreen() {
             Spacer(modifier = Modifier.height(16.dp))
             Button(
                 onClick = {
-
+                    viewModel.login(username, password)
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -143,6 +147,6 @@ fun LoginScreen() {
 @Composable
 private fun LoginScreenPreview() {
     CloudDriveTheme {
-        LoginScreen()
+        LoginScreen(modifier = Modifier)
     }
 }

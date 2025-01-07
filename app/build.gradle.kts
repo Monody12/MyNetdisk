@@ -44,6 +44,9 @@ android {
             excludes += "META-INF/gradle/incremental.annotation.processors"
         }
     }
+    hilt {
+        enableAggregatingTask = false
+    }
 }
 
 dependencies {
@@ -59,8 +62,20 @@ dependencies {
     implementation(libs.androidx.material.icons.extended)
     implementation(libs.hilt.android)
     implementation(libs.hilt.compiler)
+    kapt(libs.hilt.android.compiler)
     implementation(libs.hilt.navigation.compose)
     implementation(libs.navigation.compose)
+    // 网络
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.moshi)
+    implementation(libs.okhttp)
+    implementation(libs.okhttp.logging)
+    implementation(libs.moshi)
+    implementation(libs.moshi.kotlin)
+//    implementation(libs.gson)
+    // 存储
+    implementation(libs.datastore.core) // 如果需要使用 proto 存储
+    implementation(libs.datastore.preferences) // 如果需要使用 Preferences 存储
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
