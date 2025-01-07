@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.mynetdisk"
+    namespace = "com.example.cloud.drive"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.mynetdisk"
+        applicationId = "com.example.cloud.drive"
         minSdk = 29
         targetSdk = 35
         versionCode = 1
@@ -38,6 +38,11 @@ android {
     }
     buildFeatures {
         compose = true
+    }
+    packaging {
+        resources {
+            excludes += "META-INF/gradle/incremental.annotation.processors"
+        }
     }
 }
 
