@@ -3,7 +3,6 @@ package com.example.cloud.drive.data.api
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import com.example.cloud.drive.data.repository.PreferencesKeys
-import com.google.common.eventbus.EventBus
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
@@ -18,7 +17,7 @@ class AuthInterceptor @Inject constructor(
         }
 
         val request = chain.request().newBuilder().apply {
-            token?.let { addHeader("Authorization", "Bearer $it") }
+            token?.let { addHeader("Authorization", it) }
         }.build()
 
         val response = chain.proceed(request)

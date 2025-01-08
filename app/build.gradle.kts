@@ -76,6 +76,9 @@ dependencies {
     // 存储
     implementation(libs.datastore.core) // 如果需要使用 proto 存储
     implementation(libs.datastore.preferences) // 如果需要使用 Preferences 存储
+    // 播放器
+    implementation(libs.media3.exoplayer)
+    implementation(libs.media3.ui)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

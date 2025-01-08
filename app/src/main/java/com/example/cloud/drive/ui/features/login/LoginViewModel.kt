@@ -3,7 +3,9 @@ package com.example.cloud.drive.ui.features.login
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cloud.drive.data.api.ApiService
+import com.example.cloud.drive.data.model.ApiResponse
 import com.example.cloud.drive.data.model.LoginRequest
+import com.example.cloud.drive.data.model.LoginResponse
 import com.example.cloud.drive.data.model.LoginState
 import com.example.cloud.drive.data.repository.DataStoreRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,22 +25,19 @@ class LoginViewModel @Inject constructor(
 
     fun login(username: String, password: String) = viewModelScope.launch {
         _loginState.value = LoginState.Loading
-
         try {
-            val response = apiService.login(LoginRequest(username, password))
-            if (response.isSuccessful) {
-                response.body()?.let { loginResponse ->
-                    // 保存token
-                    dataStoreRepository.saveToken(loginResponse.token)
-                    _loginState.value = LoginState.Success(loginResponse)
-                } ?: run {
-                    _loginState.value = LoginState.Error("Empty response")
-                }
+            val response: ApiResponse<LoginResponse> =
+                apiService.login(LoginRequest(username, password))
+            if (response.code == 200) {
+                // 保存token
+                dataStoreRepository.saveToken(response.data!!.token)
+                _loginState.value = LoginState.Success(response.data!!)
             } else {
-                _loginState.value = LoginState.Error("Login failed: ${response.code()}")
+                _loginState.value = LoginState.Error("Login failed: ${response.msg}")
             }
         } catch (e: Exception) {
             _loginState.value = LoginState.Error(e.message ?: "Unknown error")
+            e.printStackTrace()
         }
     }
 }

@@ -31,6 +31,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -41,14 +42,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.cloud.drive.ui.theme.CloudDriveTheme
+import com.example.cloud.drive.util.ToastUtil
 
 @Composable
 fun LoginScreen(
     modifier: Modifier,
     viewModel: LoginViewModel = hiltViewModel()
 ) {
-    var username by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
+    val context = LocalContext.current
+    var username by remember { mutableStateOf("monody") }
+    var password by remember { mutableStateOf("monody12") }
     var passwordVisible by remember { mutableStateOf(false) }
 
     Box(
@@ -121,6 +124,7 @@ fun LoginScreen(
             Spacer(modifier = Modifier.height(16.dp))
             Button(
                 onClick = {
+                    ToastUtil.showToast(context, "点击登录按钮")
                     viewModel.login(username, password)
                 },
                 modifier = Modifier
