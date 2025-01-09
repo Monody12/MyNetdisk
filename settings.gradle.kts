@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Cloud Drive"
 include(":app")
+include(":videoplayer")
