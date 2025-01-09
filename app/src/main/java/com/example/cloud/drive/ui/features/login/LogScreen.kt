@@ -49,6 +49,17 @@ fun LoginScreen(
     modifier: Modifier,
     viewModel: LoginViewModel = hiltViewModel()
 ) {
+    LoginScreenContent(
+        modifier = modifier,
+        onLoginClick = viewModel::login
+    )
+}
+
+@Composable
+fun LoginScreenContent(
+    modifier: Modifier,
+    onLoginClick: (String, String) -> Unit
+) {
     val context = LocalContext.current
     var username by remember { mutableStateOf("monody") }
     var password by remember { mutableStateOf("monody12") }
@@ -125,7 +136,7 @@ fun LoginScreen(
             Button(
                 onClick = {
                     ToastUtil.showToast(context, "点击登录按钮")
-                    viewModel.login(username, password)
+                    onLoginClick(username, password)
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -147,10 +158,13 @@ fun LoginScreen(
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 private fun LoginScreenPreview() {
     CloudDriveTheme {
-        LoginScreen(modifier = Modifier)
+        LoginScreenContent(
+            modifier = Modifier,
+            onLoginClick = {_,_ -> {}}
+        )
     }
 }
